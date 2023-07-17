@@ -23,7 +23,7 @@ class Least_Square:
         self.d = self.b.T @ self.b
         self.m, self.n = self.A.shape
         L_F = np.linalg.norm(self.A)**2
-        self.hess = (2/m)*self.B
+        self.hess = (2/self.m)*self.B
     def F(self, x):
             return (x.T @ self.B @ x - self.C_T @ x + self.d)/self.m
 
