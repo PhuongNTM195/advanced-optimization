@@ -1,4 +1,9 @@
-def newton_method(alpha=None, use_linesearch=False,
+import numpy as np
+import time
+from backtracking_linesearch import backtracking_line_search_wolfe1
+ 
+
+def newton_method(ls, alpha=None, use_linesearch=False,
                               max_iteration=1e4,
                               epsilon=1e-6,
                               x_start=None,
@@ -9,21 +14,21 @@ def newton_method(alpha=None, use_linesearch=False,
     if x_start:
         x_current = x_start
     else:
-        x_current = np.random.normal(loc=0, scale=1, size=n)
+        x_current = np.random.normal(loc=0, scale=1, size=ls.n)
     # keep track of interation
     x_history = []
     f_value = []
     time_history = []
-    hess = hessian()
+    hess = ls.hess
     alpha_lst = []
-    start_time = time.time() - time_offset
+    start_time = time.time()
     for k in range(int(max_iteration)):
         x_history.append(x_current)
 #         f_value.append(F(x_current))
         # gradient update
         if use_linesearch:
-            alpha = backtracking_line_search_wolfe1(x_current, alpha_bar=alpha_bar, ro=ro, c=c)
-        grad = grad_F(x_current)
+            alpha = backtracking_line_search_wolfe1(ls, x_current, alpha_bar=alpha_bar, ro=ro, c=c)
+        grad = ls.grad_F(x_current)
 #         print(grad.shape, hess.shape)
         x_next = x_current - alpha*np.linalg.solve(hess, grad)
 
@@ -32,7 +37,7 @@ def newton_method(alpha=None, use_linesearch=False,
             break
 
         # update x
-        f_value.append(F(x_next))
+        f_value.append(ls.F(x_next))
         time_history.append(time.time() - start_time)
         alpha_lst.append(alpha)
         x_current = x_next

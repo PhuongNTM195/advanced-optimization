@@ -1,3 +1,8 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
 def plot(results, y_axis='f_value',x_axis='iterations', time_offset=0.1, xlim_max=None, ylim_max=None):
     from matplotlib.colors import rgb2hex
     import matplotlib.pyplot as plt
