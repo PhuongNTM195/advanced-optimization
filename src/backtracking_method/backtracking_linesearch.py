@@ -8,7 +8,7 @@ def backtracking_line_search_wolfe1(ls, x_k, alpha_bar=1, ro=0.5, c=1e-4):
     # giá trị hàm f() tại x_k
     f_k = ls.F(x_k)
     # gradient tại x_k * p_k
-    grad_p_k = c*grad_k.T@p_k
+    grad_p_k = c*(grad_k.T@p_k)
     # cập nhật giá trị của function tại x_k
     f_new = ls.F(x_k + alpha*p_k)
     while f_new > f_k + alpha*grad_p_k:

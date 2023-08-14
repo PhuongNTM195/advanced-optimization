@@ -36,8 +36,7 @@ def gradient_descent(ls, alpha=None, use_line_search=False,max_iteration=1e5,
         f_value.append(ls.F(x_current))
         alpha_lst.append(alpha)
         time_history.append(time.time() - start_time)
-        #alpha = backtracking_line_search(model, x_current)
-
+        
     print('GD finished after ' + str(k) + ' iterations')
 
     return {'solution': x_current,
